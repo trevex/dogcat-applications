@@ -1,0 +1,10 @@
+# Copyright 2023 Google LLC.
+# SPDX-License-Identifier: Apache-2.0
+
+# This ConfigMap is only here to illustrate, that something is deployed...
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argo-cd-hellow-world
+data:
+  hello: world
