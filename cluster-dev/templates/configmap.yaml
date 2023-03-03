@@ -1,7 +1,9 @@
-# This ConfigMap is only here to illustrate, that something is deployed...
+# This ConfigMap is only here to illustrate, that something is deployed
+# and shows the current values being set.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: argo-cd-hello-world
+  name: argo-cd-applications
 data:
-  hello: world
+  environment: {{ .Values.environment }}
+  destination.server: {{ .Values.destination.server }}
