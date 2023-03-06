@@ -72,4 +72,3 @@ spec:
         set -e
         image="$(params.image)"
         echo -n "${image}" | tee "$(results.imageURL.path)"
--
