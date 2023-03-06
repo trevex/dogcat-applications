@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kaniko
+  labels:
+    app.kubernetes.io/version: "0.6"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.17.0"
+    tekton.dev/categories: Image Build
+    tekton.dev/tags: image-build
+    tekton.dev/displayName: "Build and upload container image using Kaniko"
+    tekton.dev/platforms: "linux/amd64,linux/arm64,linux/ppc64le"
+spec:
+  description: >-
+    This Task builds a simple Dockerfile with kaniko and pushes to a registry.
+    This Task stores the image name and digest as results, allowing Tekton Chains to pick up
+    that an image was built & sign it.
+  params:
+    - name: image
+      description: Name (reference) of the image to build.
+    - name: dockerfile
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: context
+      description: The build context used by Kaniko.
+      default: ./
+    - name: extraArgs
+      type: array
+      default: []
+    - name: builderImage
+      description: The image on which builds will run (default is v1.9.1)
+      default: gcr.io/kaniko-project/executor:v1.9.1
+  workspaces:
+    - name: source
+      description: Holds the context and Dockerfile
+    - name: dockerconfig
+      description: Includes a docker `config.json`
+      optional: true
+      mountPath: /kaniko/.docker
+  results:
+    - name: imageDigest
+      description: Digest of the image just built.
+    - name: imageURL
+      description: URL of the image just built.
+  steps:
+    - name: build-and-push
+      resources:
+        requests:
+          cpu: "2"
+          memory: "4Gi"
+          ephemeral-storage: "8Gi"
+        limits:
+          cpu: "2"
+          memory: "4Gi"
+          ephemeral-storage: "8Gi"
+      workingDir: $(workspaces.source.path)
+      image: $(params.builderImage)
+      args:
+        - $(params.extraArgs)
+        - --dockerfile=$(params.dockerfile)
+        - --context=$(workspaces.source.path)/$(params.context) # The user does not need to care the workspace and the source.
+        - --destination=$(params.image)
+        - --digest-file=$(results.imageDigest.path)
+      # kaniko assumes it is running as root, which means this example fails on platforms
+      # that default to run containers as random uid (like OpenShift). Adding this securityContext
+      # makes it explicit that it needs to run as root.
+      securityContext:
+        runAsUser: 0
+    - name: write-url
+      image: docker.io/library/bash:5.2.15
+      script: |
+        set -e
+        image="$(params.image)"
+        echo -n "${image}" | tee "$(results.imageURL.path)"
+-
