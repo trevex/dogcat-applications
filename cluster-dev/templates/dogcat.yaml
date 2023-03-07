@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dogcat-dev
+spec:
+  destination:
+    namespace: dogcat
+    server: {{ .Values.destination.server }}
+  project: default
+  source:
+    path: "chapter02b/helm/dogcat"
+    repoURL: git@github.com:NucleusEngineering/dogcat.git
+    targetRevision: HEAD
+    helm:
+      releaseName: dogcat-dev
+      valueFiles:
+      - chapter02b/helm/dev.yaml
+  syncPolicy:
+    automated: {}
