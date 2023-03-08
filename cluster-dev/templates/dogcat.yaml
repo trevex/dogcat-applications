@@ -2,6 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dogcat-dev
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: dogcat=europe-west1-docker.pkg.dev/nvoss-dogcat-chapter-02-shared/images/dogcat
+    argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
 spec:
   destination:
     namespace: dogcat
@@ -20,5 +23,3 @@ spec:
         value: europe-west1-docker.pkg.dev/nvoss-dogcat-chapter-02-shared/images/dogcat
       - name: "image.tag"
         value: ec7b18203533bbb53d3fe3b233479dd5f0203766
-  syncPolicy:
-    automated: {}
