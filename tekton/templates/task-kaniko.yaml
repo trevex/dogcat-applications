@@ -37,10 +37,10 @@ spec:
       description: Includes a docker `config.json`
       optional: true
       mountPath: /kaniko/.docker
-  results:
-    - name: imageDigest
+  results: # Needs to follow conventions outlined here: https://tekton.dev/docs/chains/config/#chains-type-hinting
+    - name: IMAGE_DIGEST
       description: Digest of the image just built.
-    - name: imageURL
+    - name: IMAGE_URL
       description: URL of the image just built.
   steps:
     - name: build-and-push
@@ -60,7 +60,7 @@ spec:
         - --dockerfile=$(params.dockerfile)
         - --context=$(workspaces.source.path)/$(params.context) # The user does not need to care the workspace and the source.
         - --destination=$(params.image)
-        - --digest-file=$(results.imageDigest.path)
+        - --digest-file=$(results.IMAGE_DIGEST.path)
       # kaniko assumes it is running as root, which means this example fails on platforms
       # that default to run containers as random uid (like OpenShift). Adding this securityContext
       # makes it explicit that it needs to run as root.
@@ -71,4 +71,4 @@ spec:
       script: |
         set -e
         image="$(params.image)"
-        echo -n "${image}" | tee "$(results.imageURL.path)"
+        echo -n "${image}" | tee "$(results.IMAGE_URL.path)"
