@@ -9,7 +9,7 @@ spec:
   destination:
     namespace: dogcat
     server: {{ .Values.destination.server }}
-  project: default
+  project: cluster-dev
   source:
     path: "chapter02b/helm/dogcat"
     repoURL: git@github.com:NucleusEngineering/dogcat.git
@@ -20,7 +20,7 @@ spec:
       - ../dev.yaml
       parameters:
       - name: "image.repository"
-        value: europe-west1-docker.pkg.dev/nvoss-dogcat-chapter-02-shared/images/dogcat
+        value: europe-west1-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
       - name: "image.tag"
         value: ec7b18203533bbb53d3fe3b233479dd5f0203766
   syncPolicy:
