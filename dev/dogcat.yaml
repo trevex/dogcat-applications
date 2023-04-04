@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dogcat
+spec:
+  source:
+    helm:
+      parameters:
+      - name: "image.tag"
+        value: 57659c3021c8250e298288d529ff1893fdfb26d9
