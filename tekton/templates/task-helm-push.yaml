@@ -45,6 +45,7 @@ spec:
         #!/bin/sh
         apk --no-cache add curl;
         helm plugin install https://github.com/hayorov/helm-gcs.git --version 0.4.1;
+        helm gcs init gs://$(params.bucketName)
         helm repo add $(params.bucketName) gs://$(params.bucketName)
         cd $(params.path)
         sed -i "s/tag: \"\"/tag: \"$(params.imageTag)\"/g" values.yaml
