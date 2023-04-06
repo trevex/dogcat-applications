@@ -15,6 +15,15 @@ spec:
   - name: image
     type: string
     description: The docker image to build and push.
+  - name: imageTag
+    type: string
+    description: The tag of the image being build.
+  - name: chartVersion
+    type: string
+    description: Version of the helm chart to build.
+  - name: chartsBucketName
+    type: string
+    description: GCS Bucket used to store helm-charts.
   workspaces:
   - name: shared-data
     description: |
@@ -46,3 +55,19 @@ spec:
       value: "./chapter02b"
     - name: image
       value: $(params.image)
+  - name: helm-push
+    runAfter: ["kaniko"]
+    taskRef:
+      name: helm-push
+    workspaces:
+    - name: source
+      workspace: shared-data
+    params:
+    - name: path
+      value: "./chapter02b/helm/dogcat"
+    - name: version
+      value: $(params.chartVersion)
+    - name: bucketName
+      value: $(params.chartsBucketName)
+    - name: imageTag
+      value: $(params.imageTag)

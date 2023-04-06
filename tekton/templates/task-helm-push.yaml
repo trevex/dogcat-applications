@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: helm-push
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.17.0"
+    tekton.dev/categories: Helm
+    tekton.dev/tags: helm
+    tekton.dev/displayName: "Package and push Helm chart"
+    tekton.dev/platforms: "linux/amd64"
+spec:
+  description: >-
+    This Task packages and pushes a Helm chart to a GCS bucket.
+  params:
+    - name: imageTag
+      description: TODO
+    - name: version
+      description: TODO
+    - name: bucketName
+      description: TODO
+    - name: path
+      description: TODO
+    - name: builderImage
+      description: The image on which builds will run
+      default: alpine/helm:3.11.1
+  workspaces:
+    - name: source
+      description: Holds the Helm chart at the specified path.
+  steps:
+    - name: package-and-push
+      resources:
+        requests:
+          cpu: "1"
+          memory: "2Gi"
+          ephemeral-storage: "2Gi"
+        limits:
+          cpu: "1"
+          memory: "2Gi"
+          ephemeral-storage: "2Gi"
+      workingDir: $(workspaces.source.path)
+      image: $(params.builderImage)
+      script: |
+        #!/bin/sh
+        apk --no-cache add curl;
+        helm plugin install https://github.com/hayorov/helm-gcs.git --version 0.4.1;
+        helm repo add $(params.bucketName) gs://$(params.bucketName)
+        cd $(params.path)
+        sed -i "s/tag: \"\"/tag: \"$(params.imageTag)\"/g" values.yaml
+        helm package --version=$(params.version) .
+        helm gcs push *.tgz $(params.bucketName)
