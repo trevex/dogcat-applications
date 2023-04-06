@@ -2,9 +2,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dogcat-dev
-  # annotations:
-  #   argocd-image-updater.argoproj.io/image-list: dogcat=europe-west1-docker.pkg.dev/nvoss-dogcat-chapter-02-shared/images/dogcat
-  #   argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: dogcat=europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
+    argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
+    argocd-image-updater.argoproj.io/dogcat.allow-tags: "regexp:^[0-9a-f]{40}$"
 spec:
   destination:
     namespace: dogcat
@@ -20,8 +21,9 @@ spec:
       - ../dev.yaml
       parameters:
       - name: "image.repository"
-        value: europe-west1-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
+        value: europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
       - name: "image.tag"
         value: ec7b18203533bbb53d3fe3b233479dd5f0203766
-  syncPolicy:
-    automated: {}
+# We do not sync automatically on dev, as we rely on argocd-image-updater instead
+#  syncPolicy:
+#    automated: {}
