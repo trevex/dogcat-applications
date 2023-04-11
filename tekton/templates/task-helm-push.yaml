@@ -47,4 +47,4 @@ spec:
         cd $(params.path)
         sed -i "s/tag: \"\"/tag: \"$(params.imageTag)\"/g" values.yaml
         helm package --version=$(params.version) .
-        curl --data-binary "@`find . -type f -name '*.tgz'`" http://$(params.chartmuseumURL)/api/charts
+        curl --data-binary "@`find . -type f -name '*.tgz'`" $(params.chartmuseumURL)/api/charts
