@@ -21,9 +21,9 @@ spec:
   - name: chartVersion
     type: string
     description: Version of the helm chart to build.
-  - name: chartsBucketName
+  - name: chartmuseumURL
     type: string
-    description: GCS Bucket used to store helm-charts.
+    description: Base URL of chartmuseum instance.
   workspaces:
   - name: shared-data
     description: |
@@ -67,7 +67,7 @@ spec:
       value: "./chapter02b/helm/dogcat"
     - name: version
       value: $(params.chartVersion)
-    - name: bucketName
-      value: $(params.chartsBucketName)
+    - name: chartmuseumURL
+      value: $(params.chartmuseumURL)
     - name: imageTag
       value: $(params.imageTag)
