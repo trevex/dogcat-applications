@@ -43,7 +43,8 @@ spec:
       image: $(params.builderImage)
       script: |
         #!/bin/sh
-        apk --no-cache add curl;
+        set -euo pipefail
+        apk --no-cache add curl
         cd $(params.path)
         sed -i "s/tag: \"\"/tag: \"$(params.imageTag)\"/g" values.yaml
         helm package --version=$(params.version) .
