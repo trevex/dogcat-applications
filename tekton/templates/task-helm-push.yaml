@@ -48,7 +48,7 @@ spec:
 
         cd $(params.path)
         image_repo="`cut -d':' -f1 <<<"$(params.image)"`"
-        image_repo_esc="`sed 's/[&/\]/\\&/g' <<<"${image_repo}"`"
+        image_repo_esc="`printf '%s\n' "${image_repo}" | sed 's/[&/\]/\\&/g'`"
         image_tag="`cut -d':' -f2 <<<"$(params.image)"`"
 
         sed -i "s/repository: dogcat/repository: \"${image_repo_esc}\"/g" values.yaml
