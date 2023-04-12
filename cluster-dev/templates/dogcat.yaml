@@ -14,7 +14,7 @@ spec:
   sources:
   - repoURL: '{{ .Values.chartmuseum.url }}'
     chart: dogcat
-    targetRevision: 0.0.0-*
+    targetRevision: '>=0.0.0-0 <0.1.0-0'
     helm:
       valueFiles:
       - $values/chapter02b/helm/dev.yaml
