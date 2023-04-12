@@ -2,28 +2,27 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dogcat-dev
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: dogcat=europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
-    argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
-    argocd-image-updater.argoproj.io/dogcat.allow-tags: "regexp:^[0-9a-f]{40}$"
+  # annotations:
+  #   argocd-image-updater.argoproj.io/image-list: dogcat=europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
+  #   argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
+  #   argocd-image-updater.argoproj.io/dogcat.allow-tags: "regexp:^[0-9a-f]{40}$"
 spec:
   destination:
     namespace: dogcat
     server: {{ .Values.destination.server }}
   project: cluster-dev
-  source:
-    path: "chapter02b/helm/dogcat"
-    repoURL: git@github.com:NucleusEngineering/dogcat.git
-    targetRevision: HEAD
+  sources:
+  - repoURL: '{{ .Values.chartmuseum.url }}'
+    chart: dogcat
+    targetRevision: 0.0.0-*
     helm:
-      releaseName: dogcat-dev
       valueFiles:
-      - ../dev.yaml
+      - $values/chapter02b/helm/dev.yaml
       parameters:
       - name: "image.repository"
         value: europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
-      - name: "image.tag"
-        value: ec7b18203533bbb53d3fe3b233479dd5f0203766
-# We do not sync automatically on dev, as we rely on argocd-image-updater instead
-#  syncPolicy:
-#    automated: {}
+  - repoURL: 'git@github.com:NucleusEngineering/dogcat.git'
+    targetRevision: HEAD
+    ref: values
+  syncPolicy:
+    automated: {}
