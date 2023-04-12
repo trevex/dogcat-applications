@@ -15,9 +15,6 @@ spec:
   - name: image
     type: string
     description: The docker image to build and push.
-  - name: imageTag
-    type: string
-    description: The tag of the image being build.
   - name: chartVersion
     type: string
     description: Version of the helm chart to build.
@@ -69,5 +66,5 @@ spec:
       value: $(params.chartVersion)
     - name: chartmuseumURL
       value: $(params.chartmuseumURL)
-    - name: imageTag
-      value: $(params.imageTag)
+    - name: image
+      value: $(params.image)

@@ -14,7 +14,7 @@ spec:
   description: >-
     This Task packages and pushes a Helm chart to a GCS bucket.
   params:
-    - name: imageTag
+    - name: image
       description: TODO
     - name: version
       description: TODO
@@ -45,7 +45,13 @@ spec:
         #!/bin/sh
         set -euo pipefail
         apk --no-cache add curl
+
         cd $(params.path)
-        sed -i "s/tag: \"\"/tag: \"$(params.imageTag)\"/g" values.yaml
+        image_repo="$(cut -d':' -f1 <<<"$(params.image)")"
+        image_tag="$(cut -d':' -f2 <<<"$(params.image)")"
+
+        sed -i "s/repository: dogcat/repository: \"$image_repo\"/g" values.yaml
+        sed -i "s/tag: \"\"/tag: \"$image_tag\"/g" values.yaml
+
         helm package --version=$(params.version) .
         curl --data-binary "@`find . -type f -name '*.tgz'`" $(params.chartmuseumURL)/api/charts
