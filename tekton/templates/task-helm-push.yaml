@@ -47,9 +47,9 @@ spec:
         apk --no-cache add curl
 
         cd $(params.path)
-        image_repo="`cut -d':' -f1 <<<"$(params.image)"`"
+        image_repo="`printf '%s\n' "$(params.image)" | cut -d':' -f1`"
         image_repo_esc="`printf '%s\n' "${image_repo}" | sed 's/[&/\]/\\&/g'`"
-        image_tag="`cut -d':' -f2 <<<"$(params.image)"`"
+        image_tag="`printf '%s\n' "$(params.image)" | cut -d':' -f2`"
 
         sed -i "s/repository: dogcat/repository: \"${image_repo_esc}\"/g" values.yaml
         sed -i "s/tag: \"\"/tag: \"${image_tag}\"/g" values.yaml
