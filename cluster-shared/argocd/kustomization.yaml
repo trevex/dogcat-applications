@@ -13,3 +13,4 @@ resources:
 patchesStrategicMerge:
 - overlays/insecure.yaml
 - overlays/exclusions.yaml
+- overlays/workloadidentities.yaml
