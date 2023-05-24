@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: cert-manager
 
 resources:
-- base/workloadidentities.yaml
+- workloadidentities.yaml
 - https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
 
 patchesStrategicMerge:
-- patches/delete-obsolete-serviceaccounts.yaml
+- delete-obsolete-serviceaccounts.yaml
