@@ -7,3 +7,25 @@ spec:
   targetPort: 8080
   selector:
     "app.kubernetes.io/name": "argocd-server"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt"
+spec:
+  rules:
+  - host: "argocd.shared.dogcat.nvoss.demo.altostrat.com"
+    http:
+      paths:
+      - path: /*
+        backend:
+          service:
+            name: argocd-server-iap
+            port:
+              number: 8080
+  tls:
+  - hosts:
+      - "argocd.shared.dogcat.nvoss.demo.altostrat.com"
+    secretName: argocd-server-tls
