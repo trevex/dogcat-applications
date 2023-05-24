@@ -1,0 +1,9 @@
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: IAPService
+metadata:
+  name: argocd-server-iap
+spec:
+  port: 8080
+  targetPort: 8080
+  selector:
+    "app.kubernetes.io/name": "argocd-server"
