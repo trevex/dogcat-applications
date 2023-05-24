@@ -26,7 +26,7 @@ spec:
         }
       }
 
-      resource "kubernetes_config_map_v1_data" "tekton_chains" {
+      resource "kubernetes_config_map_v1" "tekton_chains" {
         metadata {
           name      = "chains-config"
           namespace = "tekton-chains"
