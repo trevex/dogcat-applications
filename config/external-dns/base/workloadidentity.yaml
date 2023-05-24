@@ -1,0 +1,6 @@
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: WorkloadIdentity
+metadata:
+  name: external-dns
+spec:
+  roles: ["roles/dns.admin"]

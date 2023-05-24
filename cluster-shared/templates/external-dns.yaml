@@ -1,0 +1,16 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns-shared
+spec:
+  destination:
+    namespace: "external-dns"
+    server: {{ .Values.destination.server }}
+  project: cluster-shared
+  source:
+    path: "config/external-dns"
+    repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
+    targetRevision: "HEAD"
+  syncPolicy:
+    automated: {}
