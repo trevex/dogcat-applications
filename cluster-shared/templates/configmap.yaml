@@ -1,0 +1,9 @@
+# This ConfigMap is only here to illustrate, that something is deployed
+# and shows the current values being set.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-shared
+data:
+  environment: {{ .Values.environment }}
+  destination.server: {{ .Values.destination.server }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cluster-shared
+description: A Helm chart for all ArgoCD Apps of Apps
+type: application
+version: 0.1.0
+appVersion: 0.1.0
