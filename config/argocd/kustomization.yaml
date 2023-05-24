@@ -12,6 +12,6 @@ resources:
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
 
 patchesStrategicMerge:
-- overlays/insecure.yaml
-- overlays/exclusions.yaml
-- overlays/delete-obsolete-serviceaccounts.yaml
+- patches/insecure.yaml
+- patches/exclusions.yaml
+- patches/delete-obsolete-serviceaccounts.yaml

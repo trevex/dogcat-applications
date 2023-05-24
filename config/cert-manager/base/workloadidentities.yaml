@@ -1,0 +1,6 @@
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: WorkloadIdentity
+metadata:
+  name: cert-manager
+spec:
+  roles: ["roles/dns.admin"]
