@@ -1,0 +1,18 @@
+# NOTE: reduce permissions for production use, e.g. per AR
+---
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: WorkloadIdentity
+metadata:
+  name: tekton
+  namespace: tekton
+spec:
+  roles: ["roles/artifactregistry.writer", "roles/storage.admin"]
+---
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: WorkloadIdentity
+metadata:
+  name: tekton-chains-controller
+  namespace: tekton-chains
+spec:
+  roles: ["roles/artifactregistry.writer", "roles/storage.admin", "roles/cloudkms.viewer", "roles/cloudkms.signerVerifier"]
+

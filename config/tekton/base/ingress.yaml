@@ -1,0 +1,34 @@
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: IAPService
+metadata:
+  name: tekton-dashboard-iap
+  namespace: tekton-pipelines
+spec:
+  port: 8080
+  targetPort: 9097
+  selector:
+    app: "tekton-dashboard"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tekton-dashboard-iap
+  namespace: tekton-pipelines
+  annotations:
+    "cert-manager.io/cluster-issuer": "letsencrypt"
+spec:
+  rules:
+  - host: "tekton.shared.dogcat.nvoss.demo.altostrat.com"
+    http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: tekton-dashboard-iap
+            port:
+              number: 8080
+  tls:
+  - hosts:
+      - "tekton.shared.dogcat.nvoss.demo.altostrat.com"
+    secretName: tekton-dashboard-tls
