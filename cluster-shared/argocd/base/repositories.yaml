@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-applications-repo
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  # For public repositories use:
+  # https://github.com/NucleusEngineering/dogcat-applications.git
+  # For a private repository (make sure credentials are available, check README appendix):
+  # git@github.com:NucleusEngineering/dogcat-applications.git
+  url: "git@github.com:NucleusEngineering/dogcat-applications.git"

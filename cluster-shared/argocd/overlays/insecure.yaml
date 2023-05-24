@@ -4,3 +4,14 @@ metadata:
   name: argocd-cmd-params-cm
 data:
   server.insecure: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  application.resourceTrackingMethod: annotation
+  admin.enabled: 'false'
+  users.anonymous.enabled: 'true'
+  cluster.inClusterEnabled: 'true'
+
