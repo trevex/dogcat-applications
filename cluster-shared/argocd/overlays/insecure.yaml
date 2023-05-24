@@ -14,4 +14,10 @@ data:
   admin.enabled: 'false'
   users.anonymous.enabled: 'true'
   cluster.inClusterEnabled: 'true'
-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+data:
+  policy.default: role:admin
