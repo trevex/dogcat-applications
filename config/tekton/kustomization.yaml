@@ -10,7 +10,9 @@ resources:
 - base/workloadidentities.yaml
 - base/ingress.yaml
 - base/namespace.yaml
+- base/chains-config.yaml
 
 patchesStrategicMerge:
 - patches/delete-obsolete-serviceaccounts.yaml
+- patches/delete-default-chains-config.yaml
 - patches/safe-to-evict.yaml

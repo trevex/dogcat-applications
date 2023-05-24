@@ -1,0 +1,45 @@
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: tekton-chains-config
+  namespace: tekton-chains
+spec:
+  forProvider:
+    source: Inline
+    module: |
+      resource "google_kms_key_ring" "tekton_chains" {
+        name     = "tekton-chains"
+        location = "global"
+      }
+
+      resource "google_kms_crypto_key" "tekton_chains" {
+        name     = "cosign"
+        key_ring = google_kms_key_ring.tekton_chains.id
+        purpose  = "ASYMMETRIC_SIGN"
+
+        version_template {
+          algorithm = "EC_SIGN_P384_SHA384"
+        }
+
+        lifecycle {
+          prevent_destroy = true
+        }
+      }
+
+      resource "kubernetes_config_map_v1_data" "tekton_chains" {
+        metadata {
+          name      = "chains-config"
+          namespace = "tekton-chains"
+        }
+
+        data = {
+          "artifacts.taskrun.format"      = "in-toto"
+          "artifacts.taskrun.signer"      = "kms"
+          "artifacts.taskrun.storage"     = "tekton,oci"
+          "artifacts.pipelinerun.format"  = "in-toto"
+          "artifacts.pipelinerun.signer"  = "kms"
+          "artifacts.pipelinerun.storage" = "tekton,oci"
+          "artifacts.oci.signer"          = "kms"
+          "signers.kms.kmsref"            = "gcpkms://${google_kms_key_ring.tekton_chains.id}/cryptoKeys/${google_kms_crypto_key.tekton_chains.name}"
+        }
+      }
