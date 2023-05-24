@@ -26,12 +26,12 @@ spec:
     path: "cluster-shared"
     repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
     targetRevision: "HEAD"
-  helm:
-    releaseName: "cluster-shared-applications"
-    parameters:
-    - name: "environment"
-      value: "shared"
-    - name: "destination.server"
-      value: "https://kubernetes.default.svc"
+    helm:
+      releaseName: "cluster-shared-applications"
+      parameters:
+      - name: "environment"
+        value: "shared"
+      - name: "destination.server"
+        value: "https://kubernetes.default.svc"
   syncPolicy:
     automated: {}
