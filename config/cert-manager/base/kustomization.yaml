@@ -9,3 +9,50 @@ resources:
 
 patchesStrategicMerge:
 - delete-obsolete-serviceaccounts.yaml
+
+patchesJSON6902:
+# leader election should happen in cert-manager namespace
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/1
+      value: --leader-election-namespace=cert-manager
+  target:
+    kind: Deployment
+    name: cert-manager-cainjector
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/2
+      value: --leader-election-namespace=cert-manager
+  target:
+    kind: Deployment
+    name: cert-manager
+# we also need to update rbac
+- patch: |-
+    - op: replace
+      path: /metadata/namespace
+      value: cert-manager
+  target:
+    kind: Role
+    name: cert-manager-cainjector:leaderelection
+- patch: |-
+    - op: replace
+      path: /metadata/namespace
+      value: cert-manager
+  target:
+    kind: Role
+    name: cert-manager:leaderelection
+- patch: |-
+    - op: replace
+      path: /metadata/namespace
+      value: cert-manager
+  target:
+    kind: RoleBinding
+    name: cert-manager-cainjector:leaderelection
+- patch: |-
+    - op: replace
+      path: /metadata/namespace
+      value: cert-manager
+  target:
+    kind: RoleBinding
+    name: cert-manager:leaderelection
+
