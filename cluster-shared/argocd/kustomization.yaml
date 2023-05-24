@@ -7,10 +7,11 @@ resources:
 - base/namespace.yaml
 - base/repositories.yaml
 - base/applications.yaml
+- base/workloadidentities.yaml
 # - base/clusters.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
 
 patchesStrategicMerge:
 - overlays/insecure.yaml
 - overlays/exclusions.yaml
-- overlays/workloadidentities.yaml
+- overlays/delete-obsolete-serviceaccounts.yaml

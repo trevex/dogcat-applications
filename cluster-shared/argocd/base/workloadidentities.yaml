@@ -1,21 +1,9 @@
-$patch: delete
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: argocd-server
----
 apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
 kind: WorkloadIdentity
 metadata:
   name: argocd-server
 spec:
   roles: ["roles/container.viewer"]
----
-$patch: delete
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: argocd-application-controller
 ---
 apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
 kind: WorkloadIdentity
