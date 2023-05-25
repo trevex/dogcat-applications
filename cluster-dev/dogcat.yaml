@@ -12,5 +12,10 @@ spec:
     path: "chapter02b/config/overlays/dev"
     repoURL: "git@github.com:NucleusEngineering/dogcat.git"
     targetRevision: "HEAD"
+    kustomize:
+      images:
+      - name: dogcat
+        newName: europe-west3-docker.pkg.dev/nvoss-dogcat-ch02-shared/images/dogcat
+        newTag: ca0e346df8f789f6d91db409a8cf7574b421cc9e
   syncPolicy:
     automated: {}
