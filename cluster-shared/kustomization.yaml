@@ -8,3 +8,4 @@ resources:
 - cert-manager.yaml
 - external-dns.yaml
 - tekton.yaml
+- pipelines.yaml
