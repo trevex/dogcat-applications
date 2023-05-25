@@ -9,20 +9,10 @@ metadata:
 spec:
   destination:
     namespace: dogcat
-    server: {{ .Values.destination.server }}
+    server: cluster-dev
   project: cluster-dev
-  sources:
-  - repoURL: '{{ .Values.chartmuseum.url }}'
-    chart: dogcat
-    targetRevision: '>=0.0.0-0 <0.1.0-0'
-    helm:
-      valueFiles:
-      - $values/chapter02b/helm/dev.yaml
-      parameters:
-      - name: "image.repository"
-        value: europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
   - repoURL: 'git@github.com:NucleusEngineering/dogcat.git'
+    path: "chapter02b/config/overlays/dev"
     targetRevision: HEAD
-    ref: values
   syncPolicy:
     automated: {}
