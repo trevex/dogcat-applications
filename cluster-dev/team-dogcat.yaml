@@ -1,0 +1,18 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: team-dogcat-dev
+spec:
+  destination:
+    namespace: "dogcat"
+    name: cluster-dev
+  project: cluster-dev
+  source:
+    path: "config/team"
+    repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
+    targetRevision: "HEAD"
+    kustomize:
+      namespace: "dogcat"
+  syncPolicy:
+    automated: {}

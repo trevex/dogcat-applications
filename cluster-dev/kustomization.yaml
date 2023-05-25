@@ -6,3 +6,4 @@ namespace: argocd
 resources:
 - cert-manager.yaml
 - external-dns.yaml
+- team-dogcat.yaml
