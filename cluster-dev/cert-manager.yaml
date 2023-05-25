@@ -1,0 +1,16 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-dev
+spec:
+  destination:
+    namespace: "cert-manager"
+    name: cluster-dev
+  project: cluster-dev
+  source:
+    path: "config/cert-manager/overlays/dev"
+    repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
+    targetRevision: "HEAD"
+  syncPolicy:
+    automated: {}
