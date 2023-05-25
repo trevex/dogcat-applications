@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager-shared
+  name: argocd
 spec:
   destination:
-    namespace: "cert-manager"
-    server: {{ .Values.destination.server }}
+    namespace: "argocd"
+    server: "https://kubernetes.default.svc"
   project: cluster-shared
   source:
-    path: "config/cert-manager/overlays/shared"
+    path: "config/argocd"
     repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
     targetRevision: "HEAD"
   syncPolicy:

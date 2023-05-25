@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-dns-shared
+  name: cert-manager-shared
 spec:
   destination:
-    namespace: "external-dns"
-    server: {{ .Values.destination.server }}
+    namespace: "cert-manager"
+    server: "https://kubernetes.default.svc"
   project: cluster-shared
   source:
-    path: "config/external-dns"
+    path: "config/cert-manager/overlays/shared"
     repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
     targetRevision: "HEAD"
   syncPolicy:
