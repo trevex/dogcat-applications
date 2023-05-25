@@ -9,7 +9,7 @@ spec:
     name: cluster-dev
   project: cluster-dev
   source:
-    path: "chapter02b/config"
+    path: "chapter02b/config/overlays/dev"
     repoURL: "git@github.com:NucleusEngineering/dogcat.git"
     targetRevision: "HEAD"
   syncPolicy:
