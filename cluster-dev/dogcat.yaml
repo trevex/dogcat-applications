@@ -1,18 +1,16 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: dogcat-dev
-  # annotations:
-  #   argocd-image-updater.argoproj.io/image-list: dogcat=europe-west3-docker.pkg.dev/nvoss-dogcat-chapter02-shared/images/dogcat
-  #   argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
-  #   argocd-image-updater.argoproj.io/dogcat.allow-tags: "regexp:^[0-9a-f]{40}$"
 spec:
   destination:
-    namespace: dogcat
-    server: cluster-dev
+    namespace: "dogcat"
+    name: cluster-dev
   project: cluster-dev
-  - repoURL: 'git@github.com:NucleusEngineering/dogcat.git'
-    path: "chapter02b/config/overlays/dev"
-    targetRevision: HEAD
+  source:
+    path: "chapter02b/config"
+    repoURL: "git@github.com:NucleusEngineering/dogcat.git"
+    targetRevision: "HEAD"
   syncPolicy:
     automated: {}
