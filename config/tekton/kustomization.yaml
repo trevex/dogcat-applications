@@ -16,3 +16,4 @@ patchesStrategicMerge:
 - patches/delete-obsolete-serviceaccounts.yaml
 - patches/delete-default-chains-config.yaml
 - patches/safe-to-evict.yaml
+- patches/resources.yaml
