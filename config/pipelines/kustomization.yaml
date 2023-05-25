@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: tekton
 
 resources:
+- trigger-github.yaml
 - task-git-clone.yaml
 - task-kaniko.yaml
 - pipeline-example.yaml
