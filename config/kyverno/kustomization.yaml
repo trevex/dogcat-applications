@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: kyverno
 
 resources:
-- namespace.yaml
 - https://github.com/kyverno/kyverno/releases/download/v1.9.0/install.yaml
