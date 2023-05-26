@@ -7,7 +7,6 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: dogcat=europe-west3-docker.pkg.dev/nvoss-dogcat-ch02-shared/images/dogcat
     argocd-image-updater.argoproj.io/dogcat.update-strategy: latest
     argocd-image-updater.argoproj.io/dogcat.allow-tags: "regexp:^[0-9a-f]{40}$"
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-applications-write
     argocd-image-updater.argoproj.io/git-branch: main # can also be separate target, e.g. base:target
 spec:
   destination:
