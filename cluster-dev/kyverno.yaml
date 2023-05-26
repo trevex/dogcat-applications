@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno-dev
+spec:
+  destination:
+    namespace: "kyverno"
+    name: cluster-dev
+  project: cluster-dev
+  source:
+    chart: kyverno
+    repoURL: https://kyverno.github.io/kyverno/
+    targetRevision: 2.7.4
+    helm:
+      releaseName: kyverno
+      parameters:
+      - name: "fullnameOverride"
+        value: kyverno
+      - name: "replicaCount"
+        value: '1'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: {}
