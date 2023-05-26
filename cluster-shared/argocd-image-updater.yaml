@@ -1,0 +1,42 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-image-updater
+spec:
+  destination:
+    namespace: "argocd"
+    server: "https://kubernetes.default.svc"
+  project: cluster-shared
+  source:
+    chart: argocd-image-updater
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 0.9.1
+    helm:
+      releaseName: argocd-image-updater
+      values: |
+        fullnameOverride: argocd-image-updater
+        serviceAccount: # created by config/argocd
+          create: false
+          name: argocd-image-updater
+        config:
+          argocd:
+            grpcWeb: false
+            serverAddress: "http://argocd-server.argocd"
+            insecure: true
+            plaintext: true
+          registries:
+            - name: GCP Artifact Repository
+              api_url: https://europe-west3-docker.pkg.dev
+              prefix: europe-west3-docker.pkg.dev
+              credentials: ext:/scripts/gcp.sh
+              credsexpire: 30m
+        authScripts:
+          enabled: true
+          scripts:
+            gcp.sh: |
+              #!/bin/sh
+              ACCESS_TOKEN=$(wget --header 'Metadata-Flavor: Google' http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token -q -O - | grep -Eo '"access_token":.*?[^\\]",' | cut -d '"' -f 4)
+              echo "oauth2accesstoken:$ACCESS_TOKEN"
+  syncPolicy:
+    automated: {}

@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
 - argocd.yaml
+- argocd-image-updater.yaml
 - cert-manager.yaml
 - external-dns.yaml
 - tekton.yaml
