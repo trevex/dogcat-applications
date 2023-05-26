@@ -5,6 +5,7 @@ metadata:
 spec:
   description: Project for shared cluster system components
   sourceRepos:
+    - "https://argoproj.github.io/argo-helm"
     - "git@github.com:NucleusEngineering/dogcat-applications.git"
   destinations:
     - namespace: "*"
