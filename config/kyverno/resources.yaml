@@ -17,6 +17,17 @@ spec:
               cpu: 250m
               ephemeral-storage: 1Gi
               memory: 512Mi
+      initContainers:
+        - name: kyverno-pre
+          resources:
+            limits:
+              cpu: 10m
+              ephemeral-storage: 1Gi
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              ephemeral-storage: 1Gi
+              memory: 64Mi
 ---
 apiVersion: apps/v1
 kind: Deployment
