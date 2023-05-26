@@ -13,9 +13,6 @@ spec:
     repoURL: "git@github.com:NucleusEngineering/dogcat-applications.git"
     targetRevision: "HEAD"
   syncPolicy:
-    # CRDs to large to apply, so kubectl create/replace have to be used.
-    # Rather than setting this, the user should sync with replace option
-    # once to get the CRDs installed and not use below option.
-    syncOptions:
-    - Replace=true
+    syncOptions: # We use server-side apply to not blow up annotations
+    - ServerSideApply=true
     automated: {}
