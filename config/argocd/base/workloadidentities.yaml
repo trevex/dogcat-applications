@@ -11,3 +11,10 @@ metadata:
   name: argocd-application-controller
 spec:
   roles: ["roles/container.developer"]
+---
+apiVersion: gcp.nvoss.demo.altostrat.com/v1alpha1
+kind: WorkloadIdentity
+metadata:
+  name: argocd-image-updater
+spec:
+  roles: ["roles/artifactregistry.reader"]
