@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  template:
+    spec:
+      containers:
+        - name: kyverno
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kyverno-cleanup-controller
+  namespace: kyverno
+spec:
+  template:
+    spec:
+      containers:
+        - name: controller
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
