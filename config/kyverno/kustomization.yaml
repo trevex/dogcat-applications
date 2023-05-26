@@ -6,5 +6,5 @@ namespace: kyverno
 resources:
 - https://github.com/kyverno/kyverno/releases/download/v1.9.0/install.yaml
 
-patches:
+patchesStrategicMerge:
 - resources.yaml
