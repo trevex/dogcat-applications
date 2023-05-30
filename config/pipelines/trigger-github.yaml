@@ -80,6 +80,19 @@ spec:
         - ref: github-binding
       template:
         ref: github-template
+  resources:
+    kubernetesResource:
+      spec:
+        template:
+          spec:
+            containers:
+            - resources:
+                requests:
+                  memory: "128Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "256Mi"
+                  cpu: "500m"
 ---
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding

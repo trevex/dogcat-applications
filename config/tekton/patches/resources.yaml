@@ -37,3 +37,122 @@ spec:
               cpu: 250m
               ephemeral-storage: 1Gi
               memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-chains-controller
+  namespace: tekton-chains
+spec:
+  template:
+    spec:
+      containers:
+        - name: tekton-chains-controller
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-dashboard
+  namespace: tekton-pipelines
+spec:
+  template:
+    spec:
+      containers:
+        - name: tekton-dashboard
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-pipelines-controller
+  namespace: tekton-pipelines
+spec:
+  template:
+    spec:
+      containers:
+        - name: tekton-pipelines-controller
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-triggers-controller
+  namespace: tekton-pipelines
+spec:
+  template:
+    spec:
+      containers:
+        - name: tekton-triggers-controller
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-triggers-webhook
+  namespace: tekton-pipelines
+spec:
+  template:
+    spec:
+      containers:
+        - name: webhook
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-triggers-core-interceptors
+  namespace: tekton-pipelines
+spec:
+  template:
+    spec:
+      containers:
+        - name: tekton-triggers-core-interceptors
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
