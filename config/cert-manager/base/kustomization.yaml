@@ -9,6 +9,7 @@ resources:
 
 patchesStrategicMerge:
 - delete-obsolete-serviceaccounts.yaml
+- resource-requests.yaml 
 
 patchesJSON6902:
 # leader election should happen in cert-manager namespace
