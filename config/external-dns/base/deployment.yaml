@@ -28,3 +28,12 @@ spec:
             - --policy=upsert-only
             - --registry=txt
             - --txt-owner-id=externaldns
+          resources:
+            limits:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 512Mi
